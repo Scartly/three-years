@@ -108,19 +108,27 @@ Y para toda la eternidad...
 
 Te amo infinitamente. ❤️
 
-`;
-
 
 // ABRIR SOBRE + MÚSICA
 
 const envelope = document.getElementById("envelope");
 const music = document.getElementById("music");
 
-envelope.addEventListener("click", () => {
+if (envelope) {
 
-    // Reproducir canción
-    music.play();
+    envelope.addEventListener("click", () => {
 
+        envelope.classList.add("open");
+
+        if (music) {
+            music.play().catch(() => {
+                console.log("El navegador bloqueó el autoplay");
+            });
+        }
+
+    });
+
+}
     // Abrir sobre
     envelope.classList.add("open");
 
