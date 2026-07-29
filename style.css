@@ -1,7 +1,3 @@
-/* ===========================
-   FUENTES Y ESTILOS GENERALES
-=========================== */
-
 *{
     margin:0;
     padding:0;
@@ -15,8 +11,9 @@ body{
     color:white;
 }
 
+
 /* ===========================
-    FONDO
+   FONDO
 =========================== */
 
 .background{
@@ -55,8 +52,9 @@ body{
 
 }
 
+
 /* ===========================
-    PANTALLA PRINCIPAL
+   PANTALLA PRINCIPAL
 =========================== */
 
 #home{
@@ -83,17 +81,16 @@ body{
     opacity:.8;
 }
 
+
 /* ===========================
-      SOBRE
+   SOBRE
 =========================== */
 
 .envelope{
 
     position:relative;
-
     width:360px;
     height:240px;
-
     cursor:pointer;
 
 }
@@ -101,22 +98,19 @@ body{
 .back{
 
     position:absolute;
-
     width:100%;
     height:100%;
-
     background:#f6d7dc;
-
     border-radius:10px;
 
     box-shadow:0 25px 50px rgba(0,0,0,.4);
 
 }
 
+
 .front{
 
     position:absolute;
-
     bottom:0;
 
     width:100%;
@@ -129,6 +123,7 @@ body{
     z-index:8;
 
 }
+
 
 .flap{
 
@@ -148,6 +143,7 @@ body{
     z-index:10;
 
 }
+
 
 .seal{
 
@@ -178,9 +174,8 @@ body{
     box-shadow:0 10px 25px rgba(0,0,0,.3);
 
 }
-
 /* ===========================
-       CARTA
+   CARTA
 =========================== */
 
 .letter{
@@ -188,11 +183,13 @@ body{
     position:absolute;
 
     left:50%;
+
     transform:translateX(-50%);
 
     bottom:5px;
 
     width:92%;
+
     height:520px;
 
     transition:1.3s;
@@ -201,9 +198,11 @@ body{
 
 }
 
+
 .paper{
 
     width:100%;
+
     height:100%;
 
     background:#fffdf8;
@@ -220,6 +219,7 @@ body{
 
 }
 
+
 .paper h2{
 
     text-align:center;
@@ -234,6 +234,7 @@ body{
 
 }
 
+
 #typedText{
 
     line-height:2;
@@ -242,8 +243,10 @@ body{
 
 }
 
+
+
 /* ===========================
-      BOTONES
+   BOTONES
 =========================== */
 
 button{
@@ -270,6 +273,7 @@ button{
 
 }
 
+
 button:hover{
 
     transform:scale(1.08);
@@ -278,8 +282,10 @@ button:hover{
 
 }
 
+
+
 /* ===========================
-      GALERÍA
+   GALERÍA
 =========================== */
 
 #gallery{
@@ -294,6 +300,7 @@ button:hover{
 
 }
 
+
 #gallery h2{
 
     font-family:"Great Vibes",cursive;
@@ -303,6 +310,7 @@ button:hover{
     margin-bottom:40px;
 
 }
+
 
 .photos{
 
@@ -316,6 +324,7 @@ button:hover{
 
 }
 
+
 .photos img{
 
     width:260px;
@@ -328,14 +337,17 @@ button:hover{
 
 }
 
+
 .photos img:hover{
 
     transform:scale(1.05);
 
 }
 
+
+
 /* ===========================
-      FINAL
+   FINAL
 =========================== */
 
 #final{
@@ -356,6 +368,7 @@ button:hover{
 
 }
 
+
 #final h1{
 
     font-size:75px;
@@ -365,6 +378,7 @@ button:hover{
     margin-bottom:25px;
 
 }
+
 
 #final p{
 
@@ -376,8 +390,10 @@ button:hover{
 
 }
 
+
+
 /* ===========================
-     CANVAS CORAZONES
+   CORAZONES
 =========================== */
 
 #canvas{
@@ -390,31 +406,78 @@ button:hover{
 
 }
 
+
+
 /* ===========================
-      RESPONSIVE
+   ABRIR SOBRE
+=========================== */
+
+.envelope.open .flap{
+
+    transform:rotateX(180deg);
+
+}
+
+
+.envelope.open .letter{
+
+    transform:translateX(-50%) translateY(-250px);
+
+}
+
+
+.envelope.open .seal{
+
+    opacity:0;
+
+    transform:translateX(-50%) scale(0);
+
+    transition:.5s;
+
+}
+
+
+
+/* ===========================
+   RESPONSIVE
 =========================== */
 
 @media(max-width:768px){
 
-.title{
-    font-size:48px;
-}
+    .title{
 
-.envelope{
-    width:300px;
-    height:200px;
-}
+        font-size:48px;
 
-.paper h2{
-    font-size:40px;
-}
+    }
 
-.photos img{
-    width:180px;
-}
 
-#final h1{
-    font-size:50px;
-}
+    .envelope{
+
+        width:300px;
+
+        height:200px;
+
+    }
+
+
+    .paper h2{
+
+        font-size:40px;
+
+    }
+
+
+    .photos img{
+
+        width:180px;
+
+    }
+
+
+    #final h1{
+
+        font-size:50px;
+
+    }
 
 }
