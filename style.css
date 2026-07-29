@@ -1,0 +1,420 @@
+/* ===========================
+   FUENTES Y ESTILOS GENERALES
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Poppins",sans-serif;
+    overflow:hidden;
+    background:linear-gradient(180deg,#0f172a,#1e293b,#312e81);
+    color:white;
+}
+
+/* ===========================
+    FONDO
+=========================== */
+
+.background{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    z-index:-2;
+}
+
+#stars{
+    position:absolute;
+    width:100%;
+    height:100%;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    animation:twinkle 3s infinite alternate;
+}
+
+@keyframes twinkle{
+
+    from{
+        opacity:.2;
+        transform:scale(.8);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1.5);
+    }
+
+}
+
+/* ===========================
+    PANTALLA PRINCIPAL
+=========================== */
+
+#home{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.title{
+    font-family:"Great Vibes",cursive;
+    font-size:70px;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    margin-bottom:45px;
+    opacity:.9;
+}
+
+.click{
+    margin-top:30px;
+    opacity:.8;
+}
+
+/* ===========================
+      SOBRE
+=========================== */
+
+.envelope{
+
+    position:relative;
+
+    width:360px;
+    height:240px;
+
+    cursor:pointer;
+
+}
+
+.back{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    background:#f6d7dc;
+
+    border-radius:10px;
+
+    box-shadow:0 25px 50px rgba(0,0,0,.4);
+
+}
+
+.front{
+
+    position:absolute;
+
+    bottom:0;
+
+    width:100%;
+    height:170px;
+
+    background:#efbcc5;
+
+    clip-path:polygon(0 100%,0 0,50% 45%,100% 0,100% 100%);
+
+    z-index:8;
+
+}
+
+.flap{
+
+    position:absolute;
+
+    width:100%;
+    height:120px;
+
+    background:#f4c9d1;
+
+    clip-path:polygon(0 0,50% 100%,100% 0);
+
+    transform-origin:top;
+
+    transition:1.2s;
+
+    z-index:10;
+
+}
+
+.seal{
+
+    position:absolute;
+
+    top:100px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:60px;
+    height:60px;
+
+    border-radius:50%;
+
+    background:#e63946;
+
+    color:white;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:26px;
+
+    z-index:20;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.3);
+
+}
+
+/* ===========================
+       CARTA
+=========================== */
+
+.letter{
+
+    position:absolute;
+
+    left:50%;
+    transform:translateX(-50%);
+
+    bottom:5px;
+
+    width:92%;
+    height:520px;
+
+    transition:1.3s;
+
+    z-index:3;
+
+}
+
+.paper{
+
+    width:100%;
+    height:100%;
+
+    background:#fffdf8;
+
+    border-radius:12px;
+
+    padding:35px;
+
+    color:#555;
+
+    overflow:auto;
+
+    box-shadow:0 20px 40px rgba(0,0,0,.35);
+
+}
+
+.paper h2{
+
+    text-align:center;
+
+    color:#d6336c;
+
+    font-family:"Great Vibes",cursive;
+
+    font-size:50px;
+
+    margin-bottom:25px;
+
+}
+
+#typedText{
+
+    line-height:2;
+
+    white-space:pre-line;
+
+}
+
+/* ===========================
+      BOTONES
+=========================== */
+
+button{
+
+    margin:35px auto;
+
+    display:block;
+
+    border:none;
+
+    background:#ff4d6d;
+
+    color:white;
+
+    padding:15px 40px;
+
+    border-radius:40px;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+}
+
+button:hover{
+
+    transform:scale(1.08);
+
+    background:#ff2d55;
+
+}
+
+/* ===========================
+      GALERÍA
+=========================== */
+
+#gallery{
+
+    display:none;
+
+    height:100vh;
+
+    padding:60px;
+
+    text-align:center;
+
+}
+
+#gallery h2{
+
+    font-family:"Great Vibes",cursive;
+
+    font-size:60px;
+
+    margin-bottom:40px;
+
+}
+
+.photos{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:25px;
+
+    flex-wrap:wrap;
+
+}
+
+.photos img{
+
+    width:260px;
+
+    border-radius:20px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.4);
+
+    transition:.4s;
+
+}
+
+.photos img:hover{
+
+    transform:scale(1.05);
+
+}
+
+/* ===========================
+      FINAL
+=========================== */
+
+#final{
+
+    display:none;
+
+    height:100vh;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+    text-align:center;
+
+    padding:40px;
+
+}
+
+#final h1{
+
+    font-size:75px;
+
+    font-family:"Great Vibes",cursive;
+
+    margin-bottom:25px;
+
+}
+
+#final p{
+
+    max-width:700px;
+
+    line-height:2;
+
+    font-size:22px;
+
+}
+
+/* ===========================
+     CANVAS CORAZONES
+=========================== */
+
+#canvas{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+}
+
+/* ===========================
+      RESPONSIVE
+=========================== */
+
+@media(max-width:768px){
+
+.title{
+    font-size:48px;
+}
+
+.envelope{
+    width:300px;
+    height:200px;
+}
+
+.paper h2{
+    font-size:40px;
+}
+
+.photos img{
+    width:180px;
+}
+
+#final h1{
+    font-size:50px;
+}
+
+}
