@@ -129,6 +129,7 @@ if (envelope) {
     });
 
 }
+alert("El script funciona");
     // Abrir sobre
     envelope.classList.add("open");
 
