@@ -106,6 +106,19 @@ Siempre.
 
 Y para toda la eternidad...
 
+const envelope = document.getElementById("envelope");
+const music = document.getElementById("music");
+
+envelope.addEventListener("click", () => {
+
+    // Reproducir canción
+    music.play();
+
+    // Abrir sobre
+    envelope.classList.add("open");
+
+});
+
 Te amo infinitamente. ❤️
 
 `;
