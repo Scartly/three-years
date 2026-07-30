@@ -21,7 +21,6 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow-x: hidden;
       overflow-y: auto;
-      padding: 20px 0;
     }
 
     /* Fondo animado con corazones y flores */
@@ -62,14 +61,14 @@
     .floating-item:nth-child(5) { left: 70%; animation-duration: 11s; animation-delay: 0.5s; }
     .floating-item:nth-child(6) { left: 85%; animation-duration: 9s; animation-delay: 2.5s; font-size: 22px; }
 
-    .container {
+    /* Envoltorio del Sobre */
+    .envelope-wrapper {
       position: relative;
       cursor: pointer;
       z-index: 2;
-      transition: transform 0.6s ease;
+      transition: transform 0.5s ease, opacity 0.5s ease;
     }
 
-    /* Sobre */
     .envelope {
       position: relative;
       width: 320px;
@@ -77,10 +76,9 @@
       background-color: #f06292;
       border-bottom-left-radius: 12px;
       border-bottom-right-radius: 12px;
-      box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+      box-shadow: 0 15px 25px rgba(0,0,0,0.15);
     }
 
-    /* Solapa del sobre */
     .flap {
       position: absolute;
       top: 0;
@@ -91,11 +89,10 @@
       border-right: 160px solid transparent;
       border-top: 120px solid #ec407a;
       transform-origin: top;
-      transition: transform 0.6s ease, z-index 0.6s;
+      transition: transform 0.4s ease;
       z-index: 3;
     }
 
-    /* Sello de corazón */
     .seal {
       position: absolute;
       top: 90px;
@@ -103,10 +100,9 @@
       transform: translateX(-50%);
       font-size: 28px;
       z-index: 4;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.3s ease;
     }
 
-    /* Bolsillo frontal del sobre */
     .pocket {
       position: absolute;
       bottom: 0;
@@ -121,32 +117,93 @@
       z-index: 2;
     }
 
-    /* Carta oculta dentro del sobre */
-    .letter {
+    .hint {
       position: absolute;
-      bottom: 10px;
-      left: 15px;
-      width: 290px;
-      height: 190px;
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 25px 18px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), height 0.8s ease, width 0.8s ease, left 0.8s ease;
-      z-index: 1;
-      overflow: hidden;
+      bottom: -40px;
+      width: 100%;
       text-align: center;
-      border: 2px solid #f8bbd0;
+      color: #880e4f;
+      font-size: 0.95rem;
+      font-weight: 600;
+      animation: pulse 1.5s infinite;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.6);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(0.98); }
+    }
+
+    /* Modal / Pantalla oscura al abrir la carta */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 20;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      padding: 20px;
     }
 
-    .letter h2 {
+    .overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Carta estilo tarjeta flotante */
+    .modal-letter {
+      background: #ffffff;
+      width: 100%;
+      max-width: 450px;
+      max-height: 80vh;
+      border-radius: 16px;
+      padding: 30px 20px 25px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      border: 3px solid #f8bbd0;
+      text-align: center;
+      overflow-y: auto;
+      transform: translateY(30px) scale(0.95);
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+    }
+
+    .overlay.active .modal-letter {
+      transform: translateY(0) scale(1);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 15px;
+      background: #f8bbd0;
+      color: #880e4f;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-letter h2 {
       color: #d81b60;
-      font-size: 1.25rem;
-      margin-bottom: 12px;
+      font-size: 1.3rem;
+      margin-bottom: 10px;
     }
 
-    .letter p {
+    .modal-letter p {
       color: #444;
       font-size: 0.95rem;
       line-height: 1.6;
@@ -158,20 +215,7 @@
       font-size: 1.1rem;
     }
 
-    .hint {
-      position: absolute;
-      bottom: -45px;
-      width: 100%;
-      text-align: center;
-      color: #880e4f;
-      font-size: 0.95rem;
-      font-weight: 600;
-      animation: pulse 1.5s infinite;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.6);
-      transition: opacity 0.3s;
-    }
-
-    /* Control de audio flotante */
+    /* Botón de música */
     .music-btn {
       position: fixed;
       top: 20px;
@@ -189,45 +233,11 @@
       align-items: center;
       z-index: 10;
     }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.7; transform: scale(0.98); }
-    }
-
-    /* --- ESTADO ABIERTO --- */
-    .container.open {
-      transform: translateY(120px); /* El sobre baja para dejar espacio a la carta arriba */
-    }
-
-    .container.open .flap {
-      transform: rotateX(180deg);
-      z-index: 0;
-    }
-
-    .container.open .seal {
-      opacity: 0;
-    }
-
-    .container.open .hint {
-      opacity: 0;
-    }
-
-    .container.open .letter {
-      opacity: 1;
-      transform: translateY(-260px); /* Sube suavemente */
-      width: 320px;                   /* Se ensancha un poquito para mayor comodidad */
-      left: 0;                        /* Queda centrada con el sobre */
-      height: 60vh;                   /* Aprovecha el 60% de la altura de la pantalla */
-      max-height: 480px;
-      z-index: 5;
-      overflow-y: auto;               /* Habilita el scroll completo dentro de la carta */
-    }
   </style>
 </head>
 <body>
 
-  <!-- Flores y corazones flotando -->
+  <!-- Decoración de fondo -->
   <div class="bg-decorations">
     <div class="floating-item">🌸</div>
     <div class="floating-item">💖</div>
@@ -238,17 +248,25 @@
   </div>
 
   <audio id="bg-music" src="jisamillas_sDofMwJf.mp3" loop preload="auto"></audio>
-
   <button class="music-btn" id="music-btn" title="Activar/Desactivar música">🎵</button>
 
-  <div class="container" id="card">
+  <!-- Sobre -->
+  <div class="envelope-wrapper" id="envelope">
     <div class="envelope">
-      <div class="flap"></div>
-      <div class="seal">❤️</div>
-      <div class="letter">
-        <h2>¡Feliz 3er Aniversario! 🌸✨</h2>
-        <div class="decorations">💖 🌷 💖</div>
-        <p>
+      <div class="flap" id="flap"></div>
+      <div class="seal" id="seal">❤️</div>
+      <div class="pocket"></div>
+    </div>
+    <div class="hint">Toca el sobre para abrir 💌</div>
+  </div>
+
+  <!-- Contenedor desplegable de la carta -->
+  <div class="overlay" id="overlay">
+    <div class="modal-letter">
+      <button class="close-btn" id="close-btn">✕</button>
+      <h2>¡Feliz 3er Aniversario! 🌸✨</h2>
+      <div class="decorations">💖 🌷 💖</div>
+      <p>
 Mi amor:
 
 Hoy quiero abrir mi corazón por completo, porque hay sentimientos que ya no caben en unas cuantas palabras.
@@ -356,35 +374,48 @@ Siempre.
 Y para toda la eternidad...
 
 Te amo infinitamente. ❤️
-        </p>
-        <div class="decorations">🌸 💖 🌸</div>
-      </div>
-      <div class="pocket"></div>
+      </p>
+      <div class="decorations">🌸 💖 🌸</div>
     </div>
-    <div class="hint">Toca el sobre para abrir 💌</div>
   </div>
 
   <script>
-    const card = document.getElementById('card');
+    const envelope = document.getElementById('envelope');
+    const flap = document.getElementById('flap');
+    const seal = document.getElementById('seal');
+    const overlay = document.getElementById('overlay');
+    const closeBtn = document.getElementById('close-btn');
     const music = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-btn');
     let isPlaying = false;
 
-    // Abrir sobre y reproducir música
-    card.addEventListener('click', () => {
-      const isOpen = card.classList.toggle('open');
+    // Abrir carta
+    envelope.addEventListener('click', () => {
+      flap.style.transform = 'rotateX(180deg)';
+      seal.style.opacity = '0';
+      
+      setTimeout(() => {
+        overlay.classList.add('active');
+      }, 400);
 
-      if (isOpen && !isPlaying) {
+      if (!isPlaying) {
         music.play().then(() => {
           isPlaying = true;
           musicBtn.textContent = '🔊';
-        }).catch(err => {
-          console.log("Autoplay bloqueado:", err);
-        });
+        }).catch(err => console.log(err));
       }
     });
 
-    // Control del botón flotante de audio
+    // Cerrar carta
+    closeBtn.addEventListener('click', () => {
+      overlay.classList.remove('active');
+      setTimeout(() => {
+        flap.style.transform = 'rotateX(0deg)';
+        seal.style.opacity = '1';
+      }, 300);
+    });
+
+    // Control del botón de música
     musicBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       if (isPlaying) {
