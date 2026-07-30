@@ -4,59 +4,105 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>¡Feliz 3er Aniversario! ❤️</title>
-  
-  <!-- Icono de pestaña -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
-  
-  <!-- Fuentes de Google Fonts (Poppins & Great Vibes) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Estilos Externos -->
-  <link rel="stylesheet" href="style.css">
-
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* Reproductor flotante adaptado al tema oscuro */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Nunito', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Fondo animado continuo */
+    .bg-decorations {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .petal {
+      position: absolute;
+      top: -10%;
+      font-size: 1.2rem;
+      user-select: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg) translateX(0);
+        opacity: 0.9;
+      }
+      50% {
+        transform: translateY(50vh) rotate(180deg) translateX(30px);
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg) translateX(-30px);
+        opacity: 0;
+      }
+    }
+
+    /* Reproductor de Música Flotante Estilizado */
     .music-player {
       position: fixed;
       top: 20px;
       right: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(244, 143, 177, 0.5);
       border-radius: 30px;
-      padding: 8px 18px;
+      padding: 8px 16px;
       display: flex;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 20px rgba(136, 14, 79, 0.12);
       z-index: 200;
       cursor: pointer;
       transition: all 0.3s ease;
     }
 
     .music-player:hover {
-      transform: scale(1.05);
-      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.03);
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .music-icon {
+      font-size: 1.2rem;
     }
 
     .music-info {
-      font-size: 0.85rem;
-      color: #fff;
-      font-weight: 600;
+      font-size: 0.82rem;
+      color: #880e4f;
+      font-weight: 700;
     }
 
     .equalizer {
       display: flex;
       align-items: flex-end;
-      gap: 3px;
+      gap: 2px;
       height: 14px;
     }
 
     .bar {
       width: 3px;
-      background: #ff4d6d;
+      background: #ec407a;
       border-radius: 2px;
       height: 4px;
       transition: height 0.2s ease;
@@ -74,25 +120,292 @@
       0% { height: 3px; }
       100% { height: 14px; }
     }
+
+    /* Contenedor del Sobre */
+    .envelope-container {
+      position: relative;
+      cursor: pointer;
+      z-index: 2;
+      transition: transform 0.6s ease;
+    }
+
+    .envelope-container:hover {
+      transform: scale(1.02);
+    }
+
+    .envelope {
+      position: relative;
+      width: 320px;
+      height: 220px;
+      background-color: #f06292;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      box-shadow: 0 15px 35px rgba(136, 14, 79, 0.25);
+    }
+
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-top: 120px solid #ec407a;
+      transform-origin: top;
+      transition: transform 0.6s ease, z-index 0.6s;
+      z-index: 3;
+    }
+
+    .seal {
+      position: absolute;
+      top: 85px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 32px;
+      z-index: 4;
+      transition: opacity 0.4s ease, transform 0.3s ease;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+    }
+
+    .pocket {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid #e91e63;
+      border-right: 160px solid #e91e63;
+      border-top: 110px solid transparent;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      z-index: 2;
+    }
+
+    .hint {
+      position: absolute;
+      bottom: -45px;
+      width: 100%;
+      text-align: center;
+      color: #880e4f;
+      font-size: 0.95rem;
+      font-weight: 700;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.75; transform: scale(0.97); }
+    }
+
+    /* CARTA ANIMADA DESDE EL SOBRE */
+    .letter-paper {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 90%;
+      max-width: 480px;
+      height: 85vh;
+      max-height: 620px;
+      background: #fffdf9;
+      background-image: radial-gradient(#f8bbd0 0.6px, transparent 0.6px);
+      background-size: 16px 16px;
+      border-radius: 16px;
+      padding: 35px 22px 25px;
+      box-shadow: 0 25px 50px rgba(136, 14, 79, 0.3);
+      border: 2px solid #f48fb1;
+      text-align: center;
+      overflow-y: auto;
+      z-index: 100;
+      
+      /* Estado Inicial: Oculta dentro del sobre */
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 20%) scale(0.2);
+      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+    }
+
+    /* Elementos Decorativos de Papel */
+    .washi-tape {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-1deg);
+      width: 110px;
+      height: 24px;
+      background: rgba(244, 143, 177, 0.5);
+      border-left: 2px dashed rgba(255,255,255,0.8);
+      border-right: 2px dashed rgba(255,255,255,0.8);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    /* Estado Abierto: Vuela hacia el centro de la pantalla */
+    .envelope-container.open .letter-paper {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .envelope-container.open .flap {
+      transform: rotateX(180deg);
+      z-index: 0;
+    }
+
+    .envelope-container.open .seal,
+    .envelope-container.open .hint {
+      opacity: 0;
+    }
+
+    /* Estilos del texto e interior */
+    .letter-paper h2 {
+      font-family: 'Dancing Script', cursive;
+      color: #c2185b;
+      font-size: 2.3rem;
+      margin-bottom: 8px;
+    }
+
+    /* Contador de Tiempo */
+    .counter-box {
+      background: rgba(248, 187, 208, 0.25);
+      border: 1px dashed #f48fb1;
+      border-radius: 12px;
+      padding: 10px;
+      margin: 12px 10px 20px;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .counter-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .counter-num {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ad1457;
+    }
+
+    .counter-label {
+      font-size: 0.7rem;
+      color: #880e4f;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .letter-paper p {
+      color: #4a4a4a;
+      font-size: 0.98rem;
+      line-height: 1.75;
+      white-space: pre-line;
+      text-align: left;
+      padding: 0 8px;
+    }
+
+    .decorations {
+      margin: 15px 0;
+      font-size: 1.2rem;
+    }
+
+    /* Botón Sorpresa / Cupón */
+    .surprise-btn {
+      margin: 20px auto 10px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #ec407a 0%, #c2185b 100%);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .surprise-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+    }
+
+    /* Modal / Ticket Sorpresa */
+    .coupon-modal {
+      display: none;
+      margin-top: 15px;
+      background: #fff;
+      border: 2px dashed #f06292;
+      border-radius: 12px;
+      padding: 15px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .coupon-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      color: #880e4f;
+      letter-spacing: 1px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .coupon-desc {
+      font-size: 1.1rem;
+      color: #c2185b;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: #f8bbd0;
+      color: #880e4f;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: background 0.2s ease;
+    }
+
+    .close-btn:hover {
+      background: #f48fb1;
+    }
+
+    /* Personalización del scroll */
+    .letter-paper::-webkit-scrollbar {
+      width: 6px;
+    }
+    .letter-paper::-webkit-scrollbar-thumb {
+      background: #f48fb1;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Fondo de Estrellas -->
-  <div class="background">
-    <div id="stars"></div>
-  </div>
+  <!-- Lluvia de pétalos de fondo -->
+  <div class="bg-decorations" id="bg-decorations"></div>
 
-  <!-- Canvas para animación de corazones -->
-  <canvas id="canvas"></canvas>
-
-  <!-- Audio -->
+  <!-- Audio y Control del reproductor -->
   <audio id="bg-music" src="un-millon-de-anos-jisa-sesion-en-vivo_DCI7ESnL.mp3" loop preload="auto"></audio>
-
-  <!-- Reproductor Flotante -->
+  
   <div class="music-player" id="music-btn" title="Reproducir / Pausar Música">
     <span class="music-icon" id="music-icon">🎵</span>
-    <span class="music-info">Nuestra Canción</span>
+    <span class="music-info" id="music-text">Nuestra Canción</span>
     <div class="equalizer">
       <div class="bar"></div>
       <div class="bar"></div>
@@ -100,34 +413,56 @@
     </div>
   </div>
 
-  <!-- PANTALLA PRINCIPAL -->
-  <section id="home">
-    <h1 class="title">3 Años Juntos</h1>
-    <p class="subtitle">Una pequeña historia escrita con el corazón ❤️</p>
-
-    <!-- Sobre Interactivos -->
-    <div class="envelope" id="envelope">
-      <div class="back"></div>
+  <!-- Contenedor Interactivo del Sobre -->
+  <div class="envelope-container" id="card">
+    <div class="envelope">
       <div class="flap"></div>
       <div class="seal">🌸</div>
-      <div class="front"></div>
+      <div class="pocket"></div>
+    </div>
+    <div class="hint">Toca el sobre para abrir 💌</div>
 
-      <!-- Carta dentro del sobre -->
-      <div class="letter">
-        <div class="paper">
-          <h2>Nuestra Historia</h2>
-          <div id="typedText">
+    <!-- Carta que emerge hacia el frente -->
+    <div class="letter-paper" id="letter">
+      <div class="washi-tape"></div>
+      <button class="close-btn" id="close-btn">✕</button>
+      
+      <h2>¡Feliz 3er Aniversario! 🌸✨</h2>
+      
+      <!-- Contador de tiempo juntos -->
+      <div class="counter-box">
+        <div class="counter-item">
+          <span class="counter-num" id="days">0</span>
+          <span class="counter-label">Días</span>
+        </div>
+        <div class="counter-item">
+          <span class="counter-num" id="hours">0</span>
+          <span class="counter-label">Hs</span>
+        </div>
+        <div class="counter-item">
+          <span class="counter-num" id="minutes">0</span>
+          <span class="counter-label">Min</span>
+        </div>
+        <div class="counter-item">
+          <span class="counter-num" id="seconds">0</span>
+          <span class="counter-label">Seg</span>
+        </div>
+      </div>
+
+      <div class="decorations">💖 🌷 💖</div>
+      
+      <p>
 Mi amor:
 
 Hoy quiero abrir mi corazón por completo, porque hay sentimientos que ya no caben en unas cuantas palabras.
 
-Han pasado tres años desde que decidimos escribir juntos esta historia, una historia que muchos quizá no entenderían porque está hecha de kilómetros, de pantallas, de esperas y de mucha paciencia. Pero para mí, nuestra historia es la prueba más hermosa de que, cuando el amor es verdadero, encuentra la forma de quedarse, de crecer y de vencer cualquier obstáculo.
+Han pasado tres años desde que decidimos escribir juntos esta historia, una historia que muchos quizá no entenderían porque está hecha de kilómetros, de esperas y de mucha paciencia. Pero para mí, nuestra historia es la prueba más hermosa de que, cuando el amor es verdadero, encuentra la forma de quedarse, de crecer y de vencer cualquier obstáculo.
 
 Hace tres años llegaste a mi vida sin imaginar el lugar tan grande que ibas a ocupar en mi corazón. Poco a poco te convertiste en mi refugio, en esa persona con la que quiero compartir cada alegría, cada miedo, cada sueño y cada pequeño momento de mi día.
 
-Desde entonces entendí que el amor no siempre necesita la cercanía de un abrazo para sentirse real; a veces basta con una llamada, con un mensaje inesperado o con escuchar tu voz para sentir que todo está bien.
+Desde entonces entendí que el amor no siempre necesita la cercanía de un abrazo para sentirse real, a veces basta con un mensaje inesperado o con escuchar tu voz para sentir que todo está bien.
 
-No voy a mentirte. Ha habido noches en las que la distancia me ha dolido tanto que solo quería correr hacia ti. Ha habido días en los que imaginaba cómo sería poder abrazarte después de un mal momento, tomar tu mano mientras caminamos o simplemente mirarte sin que una pantalla nos separe.
+No voy a mentirte. Ha habido noches en las que la distancia me ha dolido tanto que solo quería correr hacia ti. Ha habido días en los que imaginaba cómo sería poder abrazarte después de un mal momento, tomar tu mano mientras caminamos o simplemente mirarte sin que una distancia nos separe.
 
 Hay momentos en los que el corazón pesa porque extrañar a la persona que amas es una de las sensaciones más difíciles que existen.
 
@@ -143,13 +478,11 @@ Gracias por demostrarme que el amor también consiste en permanecer, en confiar 
 
 A veces me pregunto qué hice para merecer a alguien como tú.
 
-Y aunque no tenga la respuesta, sí sé una cosa: desde que llegaste a mi vida soy una mejor persona.
+Y aunque no tenga la respuesta, pero sí sé una cosa que desde que llegaste a mi vida soy una mejor persona.
 
 Me has enseñado a creer en el amor, en la paciencia y en la esperanza. Me has enseñado que la distancia no puede romper un vínculo que cada día decidimos fortalecer con confianza, respeto y cariño.
 
-Sueño constantemente con el día en que ya no tengamos que despedirnos por una videollamada.
-
-Sueño con poder despertar a tu lado, preparar un café juntos, caminar de tu mano, abrazarte todo el tiempo que la distancia me ha robado y decirte "te amo" mirándote a los ojos.
+Sueño con poder despertar a tu lado, preparar un café juntos, caminar de tu mano, abrazarte todo el tiempo que la distancia nos ha robado y decirte "te amo" mirándote a los ojos.
 
 Sueño con construir un hogar lleno de risas, de paz y de recuerdos que ya no dependan de un calendario para encontrarnos.
 
@@ -224,66 +557,98 @@ Siempre.
 Y para toda la eternidad...
 
 Te amo infinitamente. ❤️
-          </div>
-        </div>
+      </p>
+
+      <div class="decorations">🌸 💖 🌸</div>
+
+      <!-- Botón de Regalo / Sorpresa -->
+      <button class="surprise-btn" id="surprise-btn">
+        <span>🎁</span> Tocá para abrir tu sorpresa
+      </button>
+
+      <div class="coupon-modal" id="coupon">
+        <div class="coupon-title">🎫 Cupón Válido Por:</div>
+        <div class="coupon-desc">Un abrazo eterno + Un café juntos sin distancia ☕❤️</div>
+        <p style="font-size:0.8rem; color:#880e4f; text-align:center;">Válido para usar todos los días de nuestras vidas.</p>
       </div>
     </div>
+  </div>
 
-    <p class="click">✨ Toca el sobre para abrirlo ✨</p>
-  </section>
-
-  <!-- SECCIÓN DE GALERÍA DE FOTOS -->
-  <section id="gallery">
-    <h2>Nuestros Momentos</h2>
-    <div class="photos">
-      <!-- Reemplaza las URLs por las fotos que quieras -->
-      <img src="https://via.placeholder.com/260x320/ff4d6d/ffffff?text=Foto+1" alt="Momento 1">
-      <img src="https://via.placeholder.com/260x320/ff4d6d/ffffff?text=Foto+2" alt="Momento 2">
-      <img src="https://via.placeholder.com/260x320/ff4d6d/ffffff?text=Foto+3" alt="Momento 3">
-    </div>
-    <button id="toFinalBtn">Continuar ❤️</button>
-  </section>
-
-  <!-- SECCIÓN FINAL -->
-  <section id="final">
-    <h1>Te Amo</h1>
-    <p>Por más años caminando de la mano y cumpliendo cada uno de nuestros sueños juntos.</p>
-  </section>
-
-  <!-- Lógica JavaScript -->
   <script>
-    // GENERADOR DE ESTRELLAS EN EL FONDO
-    const starsContainer = document.getElementById('stars');
-    for (let i = 0; i < 70; i++) {
-      const star = document.createElement('div');
-      star.classList.add('star');
-      star.style.top = `${Math.random() * 100}%`;
-      star.style.left = `${Math.random() * 100}%`;
-      star.style.animationDelay = `${Math.random() * 3}s`;
-      starsContainer.appendChild(star);
-    }
+    // Generador de pétalos flotantes en el fondo
+    const bgDecorations = document.getElementById('bg-decorations');
+    const items = ['🌸', '💖', '🌺', '💕', '🌷', '✨'];
 
-    // ELEMENTOS INTERACTIVOS
-    const envelope = document.getElementById('envelope');
+    function createPetal() {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      petal.textContent = items[Math.floor(Math.random() * items.length)];
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.animationDuration = Math.random() * 5 + 6 + 's';
+      petal.style.fontSize = Math.random() * 10 + 16 + 'px';
+      
+      bgDecorations.appendChild(petal);
+
+      setTimeout(() => {
+        petal.remove();
+      }, 11000);
+    }
+    setInterval(createPetal, 400);
+
+    // Lógica del contador de tiempo juntos
+    // (Ajustado a 3 años exactos desde la fecha actual)
+    const startDate = new Date();
+    startDate.setFullYear(startDate.getFullYear() - 3);
+
+    function updateCounter() {
+      const now = new Date();
+      const diff = now - startDate;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+    }
+    setInterval(updateCounter, 1000);
+    updateCounter();
+
+    // Elementos Interactivos
+    const card = document.getElementById('card');
+    const closeBtn = document.getElementById('close-btn');
     const music = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-btn');
     const musicIcon = document.getElementById('music-icon');
+    const surpriseBtn = document.getElementById('surprise-btn');
+    const coupon = document.getElementById('coupon');
     let isPlaying = false;
 
-    // ABRIR SOBRE Y REPRODUCIR MÚSICA
-    envelope.addEventListener('click', () => {
-      envelope.classList.add('open');
+    // Abrir carta
+    card.addEventListener('click', (e) => {
+      if(e.target.id === 'close-btn' || e.target.closest('#surprise-btn')) return;
+      
+      card.classList.add('open');
 
       if (!isPlaying) {
         music.play().then(() => {
           isPlaying = true;
           musicBtn.classList.add('playing');
           musicIcon.textContent = '🔊';
-        }).catch(err => console.log("Se requiere interacción para reproducir el audio:", err));
+        }).catch(err => console.log(err));
       }
     });
 
-    // BOTÓN REPRODUCTOR PLAY / PAUSE
+    // Cerrar carta
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      card.classList.remove('open');
+    });
+
+    // Reproductor de música
     musicBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       if (isPlaying) {
@@ -296,6 +661,16 @@ Te amo infinitamente. ❤️
         musicBtn.classList.add('playing');
         musicIcon.textContent = '🔊';
         isPlaying = true;
+      }
+    });
+
+    // Mostrar cupón sorpresa
+    surpriseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (coupon.style.display === 'block') {
+        coupon.style.display = 'none';
+      } else {
+        coupon.style.display = 'block';
       }
     });
   </script>
