@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>¡Feliz 3er Aniversario! ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -18,12 +19,11 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Nunito', sans-serif;
       overflow-x: hidden;
-      overflow-y: auto;
     }
 
-    /* Fondo animado con corazones y flores */
+    /* Fondo animado */
     .bg-decorations {
       position: fixed;
       top: 0;
@@ -44,14 +44,8 @@
     }
 
     @keyframes floatUp {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0.8;
-      }
-      100% {
-        transform: translateY(-110vh) rotate(360deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
     }
 
     .floating-item:nth-child(1) { left: 10%; animation-duration: 9s; animation-delay: 0s; }
@@ -61,12 +55,12 @@
     .floating-item:nth-child(5) { left: 70%; animation-duration: 11s; animation-delay: 0.5s; }
     .floating-item:nth-child(6) { left: 85%; animation-duration: 9s; animation-delay: 2.5s; font-size: 22px; }
 
-    /* Envoltorio del Sobre */
-    .envelope-wrapper {
+    /* Contenedor del Sobre */
+    .envelope-container {
       position: relative;
       cursor: pointer;
       z-index: 2;
-      transition: transform 0.5s ease, opacity 0.5s ease;
+      transition: transform 0.6s ease;
     }
 
     .envelope {
@@ -76,7 +70,7 @@
       background-color: #f06292;
       border-bottom-left-radius: 12px;
       border-bottom-right-radius: 12px;
-      box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+      box-shadow: 0 15px 25px rgba(0,0,0,0.2);
     }
 
     .flap {
@@ -89,7 +83,7 @@
       border-right: 160px solid transparent;
       border-top: 120px solid #ec407a;
       transform-origin: top;
-      transition: transform 0.4s ease;
+      transition: transform 0.6s ease, z-index 0.6s;
       z-index: 3;
     }
 
@@ -100,7 +94,7 @@
       transform: translateX(-50%);
       font-size: 28px;
       z-index: 4;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.4s ease;
     }
 
     .pocket {
@@ -126,7 +120,6 @@
       font-size: 0.95rem;
       font-weight: 600;
       animation: pulse 1.5s infinite;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.6);
     }
 
     @keyframes pulse {
@@ -134,88 +127,98 @@
       50% { opacity: 0.7; transform: scale(0.98); }
     }
 
-    /* Modal / Pantalla oscura al abrir la carta */
-    .overlay {
+    /* CARTA ANIMADA DESDE EL SOBRE */
+    .letter-paper {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(4px);
-      z-index: 20;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease;
-      padding: 20px;
-    }
-
-    .overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    /* Carta estilo tarjeta flotante */
-    .modal-letter {
-      background: #ffffff;
-      width: 100%;
-      max-width: 450px;
-      max-height: 80vh;
+      top: 50%;
+      left: 50%;
+      width: 90%;
+      max-width: 460px;
+      height: 80vh;
+      max-height: 550px;
+      background: #fffdf9;
+      background-image: radial-gradient(#f8bbd0 0.5px, transparent 0.5px);
+      background-size: 15px 15px;
       border-radius: 16px;
-      padding: 30px 20px 25px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-      border: 3px solid #f8bbd0;
+      padding: 30px 20px;
+      box-shadow: 0 20px 40px rgba(136, 14, 79, 0.2);
+      border: 2px solid #f48fb1;
       text-align: center;
       overflow-y: auto;
-      transform: translateY(30px) scale(0.95);
-      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
+      z-index: 100;
+      
+      /* Estado Inicial: Oculta dentro del sobre */
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 20%) scale(0.2);
+      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
     }
 
-    .overlay.active .modal-letter {
-      transform: translateY(0) scale(1);
+    /* Estado Abierto: Vuela hacia el centro de la pantalla */
+    .envelope-container.open .letter-paper {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .envelope-container.open .flap {
+      transform: rotateX(180deg);
+      z-index: 0;
+    }
+
+    .envelope-container.open .seal,
+    .envelope-container.open .hint {
+      opacity: 0;
+    }
+
+    /* Estilos del texto e interior */
+    .letter-paper h2 {
+      font-family: 'Dancing Script', cursive;
+      color: #c2185b;
+      font-size: 2rem;
+      margin-bottom: 5px;
+    }
+
+    .letter-paper p {
+      color: #4a4a4a;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      white-space: pre-line;
+      text-align: left;
+      padding: 0 10px;
+    }
+
+    .decorations {
+      margin: 10px 0 15px;
+      font-size: 1.2rem;
     }
 
     .close-btn {
       position: absolute;
-      top: 12px;
+      top: 15px;
       right: 15px;
       background: #f8bbd0;
       color: #880e4f;
       border: none;
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
+      font-size: 16px;
       font-weight: bold;
       cursor: pointer;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
-    .modal-letter h2 {
-      color: #d81b60;
-      font-size: 1.3rem;
-      margin-bottom: 10px;
+    /* Personalización del scroll */
+    .letter-paper::-webkit-scrollbar {
+      width: 6px;
+    }
+    .letter-paper::-webkit-scrollbar-thumb {
+      background: #f48fb1;
+      border-radius: 10px;
     }
 
-    .modal-letter p {
-      color: #444;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      white-space: pre-line;
-    }
-
-    .decorations {
-      margin: 10px 0;
-      font-size: 1.1rem;
-    }
-
-    /* Botón de música */
+    /* Botón de Música */
     .music-btn {
       position: fixed;
       top: 20px;
@@ -231,13 +234,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 10;
+      z-index: 200;
     }
   </style>
 </head>
 <body>
 
-  <!-- Decoración de fondo -->
   <div class="bg-decorations">
     <div class="floating-item">🌸</div>
     <div class="floating-item">💖</div>
@@ -248,21 +250,18 @@
   </div>
 
   <audio id="bg-music" src="jisamillas_sDofMwJf.mp3" loop preload="auto"></audio>
-  <button class="music-btn" id="music-btn" title="Activar/Desactivar música">🎵</button>
+  <button class="music-btn" id="music-btn" title="Música">🎵</button>
 
-  <!-- Sobre -->
-  <div class="envelope-wrapper" id="envelope">
+  <div class="envelope-container" id="card">
     <div class="envelope">
-      <div class="flap" id="flap"></div>
-      <div class="seal" id="seal">❤️</div>
+      <div class="flap"></div>
+      <div class="seal">❤️</div>
       <div class="pocket"></div>
     </div>
     <div class="hint">Toca el sobre para abrir 💌</div>
-  </div>
 
-  <!-- Contenedor desplegable de la carta -->
-  <div class="overlay" id="overlay">
-    <div class="modal-letter">
+    <!-- Carta que sale del sobre hacia el frente -->
+    <div class="letter-paper" id="letter">
       <button class="close-btn" id="close-btn">✕</button>
       <h2>¡Feliz 3er Aniversario! 🌸✨</h2>
       <div class="decorations">💖 🌷 💖</div>
@@ -271,13 +270,13 @@ Mi amor:
 
 Hoy quiero abrir mi corazón por completo, porque hay sentimientos que ya no caben en unas cuantas palabras.
 
-Han pasado tres años desde que decidimos escribir juntos esta historia, una historia que muchos quizá no entenderían porque está hecha de kilómetros, de pantallas, de esperas y de mucha paciencia. Pero para mí, nuestra historia es la prueba más hermosa de que, cuando el amor es verdadero, encuentra la forma de quedarse, de crecer y de vencer cualquier obstáculo.
+Han pasado tres años desde que decidimos escribir juntos esta historia, una historia que muchos quizá no entenderían porque está hecha de kilómetros, de esperas y de mucha paciencia. Pero para mí, nuestra historia es la prueba más hermosa de que, cuando el amor es verdadero, encuentra la forma de quedarse, de crecer y de vencer cualquier obstáculo.
 
 Hace tres años llegaste a mi vida sin imaginar el lugar tan grande que ibas a ocupar en mi corazón. Poco a poco te convertiste en mi refugio, en esa persona con la que quiero compartir cada alegría, cada miedo, cada sueño y cada pequeño momento de mi día.
 
-Desde entonces entendí que el amor no siempre necesita la cercanía de un abrazo para sentirse real; a veces basta con una llamada, con un mensaje inesperado o con escuchar tu voz para sentir que todo está bien.
+Desde entonces entendí que el amor no siempre necesita la cercanía de un abrazo para sentirse real, a veces basta con un mensaje inesperado o con escuchar tu voz para sentir que todo está bien.
 
-No voy a mentirte. Ha habido noches en las que la distancia me ha dolido tanto que solo quería correr hacia ti. Ha habido días en los que imaginaba cómo sería poder abrazarte después de un mal momento, tomar tu mano mientras caminamos o simplemente mirarte sin que una pantalla nos separe.
+No voy a mentirte. Ha habido noches en las que la distancia me ha dolido tanto que solo quería correr hacia ti. Ha habido días en los que imaginaba cómo sería poder abrazarte después de un mal momento, tomar tu mano mientras caminamos o simplemente mirarte sin que una distancia nos separe.
 
 Hay momentos en los que el corazón pesa porque extrañar a la persona que amas es una de las sensaciones más difíciles que existen.
 
@@ -293,11 +292,9 @@ Gracias por demostrarme que el amor también consiste en permanecer, en confiar 
 
 A veces me pregunto qué hice para merecer a alguien como tú.
 
-Y aunque no tenga la respuesta, sí sé una cosa: desde que llegaste a mi vida soy una mejor persona.
+Y aunque no tenga la respuesta, pero sí sé una cosa que desde que llegaste a mi vida soy una mejor persona.
 
 Me has enseñado a creer en el amor, en la paciencia y en la esperanza. Me has enseñado que la distancia no puede romper un vínculo que cada día decidimos fortalecer con confianza, respeto y cariño.
-
-Sueño constantemente con el día en que ya no tengamos que despedirnos por una videollamada.
 
 Sueño con poder despertar a tu lado, preparar un café juntos, caminar de tu mano, abrazarte todo el tiempo que la distancia nos ha robado y decirte "te amo" mirándote a los ojos.
 
@@ -380,23 +377,17 @@ Te amo infinitamente. ❤️
   </div>
 
   <script>
-    const envelope = document.getElementById('envelope');
-    const flap = document.getElementById('flap');
-    const seal = document.getElementById('seal');
-    const overlay = document.getElementById('overlay');
+    const card = document.getElementById('card');
     const closeBtn = document.getElementById('close-btn');
     const music = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-btn');
     let isPlaying = false;
 
-    // Abrir carta
-    envelope.addEventListener('click', () => {
-      flap.style.transform = 'rotateX(180deg)';
-      seal.style.opacity = '0';
+    // Abrir la carta con la animación suave
+    card.addEventListener('click', (e) => {
+      if(e.target.id === 'close-btn') return;
       
-      setTimeout(() => {
-        overlay.classList.add('active');
-      }, 400);
+      card.classList.add('open');
 
       if (!isPlaying) {
         music.play().then(() => {
@@ -406,16 +397,13 @@ Te amo infinitamente. ❤️
       }
     });
 
-    // Cerrar carta
-    closeBtn.addEventListener('click', () => {
-      overlay.classList.remove('active');
-      setTimeout(() => {
-        flap.style.transform = 'rotateX(0deg)';
-        seal.style.opacity = '1';
-      }, 300);
+    // Cerrar la carta y volver al sobre
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      card.classList.remove('open');
     });
 
-    // Control del botón de música
+    // Botón de audio
     musicBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       if (isPlaying) {
