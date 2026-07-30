@@ -12,20 +12,63 @@
     }
 
     body {
-      background: linear-gradient(135deg, #ffebee 0%, #fce4ec 100%);
+      background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      overflow: hidden;
+      overflow-y: auto;
+      padding: 40px 0;
+      position: relative;
     }
+
+    /* Fondo animado con corazones y flores flotando */
+    .bg-decorations {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .floating-item {
+      position: absolute;
+      bottom: -50px;
+      font-size: 20px;
+      animation: floatUp 8s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Posicionamiento variado para los elementos flotantes */
+    .floating-item:nth-child(1) { left: 10%; animation-duration: 9s; animation-delay: 0s; }
+    .floating-item:nth-child(2) { left: 25%; animation-duration: 7s; animation-delay: 2s; font-size: 26px; }
+    .floating-item:nth-child(3) { left: 40%; animation-duration: 10s; animation-delay: 1s; }
+    .floating-item:nth-child(4) { left: 55%; animation-duration: 8s; animation-delay: 3s; font-size: 24px; }
+    .floating-item:nth-child(5) { left: 70%; animation-duration: 11s; animation-delay: 0.5s; }
+    .floating-item:nth-child(6) { left: 85%; animation-duration: 9s; animation-delay: 2.5s; font-size: 22px; }
 
     .container {
       position: relative;
       cursor: pointer;
-      margin-top: 40px;
+      margin-top: 140px;
+      margin-bottom: 50px;
+      z-index: 2;
     }
 
     /* Sobre */
@@ -36,7 +79,7 @@
       background-color: #f06292;
       border-bottom-left-radius: 12px;
       border-bottom-right-radius: 12px;
-      box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+      box-shadow: 0 15px 25px rgba(0,0,0,0.2);
     }
 
     /* Solapa del sobre */
@@ -88,26 +131,32 @@
       width: 290px;
       height: 190px;
       background: #ffffff;
-      border-radius: 10px;
-      padding: 20px 15px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      padding: 25px 18px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
       transition: transform 0.8s ease 0.3s, height 0.8s ease 0.3s;
       z-index: 1;
       overflow-y: auto;
       text-align: center;
+      border: 2px solid #f8bbd0;
     }
 
     .letter h2 {
       color: #d81b60;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       margin-bottom: 12px;
     }
 
     .letter p {
       color: #444;
       font-size: 0.9rem;
-      line-height: 1.5;
+      line-height: 1.6;
       white-space: pre-line;
+    }
+
+    .decorations {
+      margin: 10px 0;
+      font-size: 1.1rem;
     }
 
     .hint {
@@ -115,10 +164,11 @@
       bottom: -45px;
       width: 100%;
       text-align: center;
-      color: #ad1457;
+      color: #880e4f;
       font-size: 0.95rem;
       font-weight: 600;
       animation: pulse 1.5s infinite;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.6);
     }
 
     /* Control de audio flotante */
@@ -126,14 +176,14 @@
       position: fixed;
       top: 20px;
       right: 20px;
-      background: rgba(255, 255, 255, 0.85);
-      border: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid #f48fb1;
       border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      font-size: 20px;
+      width: 48px;
+      height: 48px;
+      font-size: 22px;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -156,18 +206,30 @@
     }
 
     .container.open .letter {
-      transform: translateY(-130px);
-      height: 330px;
+      transform: translateY(-120px);
+      height: 75vh;
+      max-height: 520px;
       z-index: 4;
+      overflow-y: auto;
     }
   </style>
 </head>
 <body>
 
+  <!-- Flores y corazones flotando de fondo -->
+  <div class="bg-decorations">
+    <div class="floating-item">🌸</div>
+    <div class="floating-item">💖</div>
+    <div class="floating-item">🌺</div>
+    <div class="floating-item">💕</div>
+    <div class="floating-item">🌷</div>
+    <div class="floating-item">❤️</div>
+  </div>
+
   <!-- Tu canción enlazada directamente -->
   <audio id="bg-music" src="jisamillas_sDofMwJf.mp3" loop preload="auto"></audio>
 
-  <!-- Botón flotante para pausar/reproducir la música -->
+  <!-- Botón flotante para la música -->
   <button class="music-btn" id="music-btn" title="Activar/Desactivar música">🎵</button>
 
   <div class="container" id="card">
@@ -175,12 +237,118 @@
       <div class="flap"></div>
       <div class="seal">❤️</div>
       <div class="letter">
-        <h2>¡Feliz 3er Aniversario! ❤️</h2>
+        <h2>¡Feliz 3er Aniversario! 🌸✨</h2>
+        <div class="decorations">💖 🌷 💖</div>
         <p>
-          Escribí acá tu mensaje...
-          
-          ¡A pesar de la distancia, estos 3 años juntos son lo más lindo que me pasó!
+Mi amor:
+
+Hoy quiero abrir mi corazón por completo, porque hay sentimientos que ya no caben en unas cuantas palabras.
+
+Han pasado tres años desde que decidimos escribir juntos esta historia, una historia que muchos quizá no entenderían porque está hecha de kilómetros, de pantallas, de esperas y de mucha paciencia. Pero para mí, nuestra historia es la prueba más hermosa de que, cuando el amor es verdadero, encuentra la forma de quedarse, de crecer y de vencer cualquier obstáculo.
+
+Hace tres años llegaste a mi vida sin imaginar el lugar tan grande que ibas a ocupar en mi corazón. Poco a poco te convertiste en mi refugio, en esa persona con la que quiero compartir cada alegría, cada miedo, cada sueño y cada pequeño momento de mi día.
+
+Desde entonces entendí que el amor no siempre necesita la cercanía de un abrazo para sentirse real; a veces basta con una llamada, con un mensaje inesperado o con escuchar tu voz para sentir que todo está bien.
+
+No voy a mentirte. Ha habido noches en las que la distancia me ha dolido tanto que solo quería correr hacia ti. Ha habido días en los que imaginaba cómo sería poder abrazarte después de un mal momento, tomar tu mano mientras caminamos o simplemente mirarte sin que una pantalla nos separe.
+
+Hay momentos en los que el corazón pesa porque extrañar a la persona que amas es una de las sensaciones más difíciles que existen.
+
+Pero, aun así, nunca he pensado en rendirme. Porque cuando pienso en ti, recuerdo todas las razones por las que vale la pena esperar. Recuerdo cada conversación hasta la madrugada, cada risa compartida, cada palabra de aliento cuando uno de los dos lo necesitaba, cada "te amo" que llegó justo en el momento indicado.
+
+Recuerdo cómo, incluso estando lejos, has logrado hacerme sentir más querida que muchas personas que están físicamente cerca.
+
+Gracias por elegirme cada día.
+
+Gracias por tener paciencia conmigo, por comprender mis silencios, por celebrar mis logros como si fueran tuyos y por sostenerme cuando siento que todo se vuelve difícil.
+
+Gracias por demostrarme que el amor también consiste en permanecer, en confiar y en luchar juntos incluso cuando el camino parece largo.
+
+A veces me pregunto qué hice para merecer a alguien como tú.
+
+Y aunque no tenga la respuesta, sí sé una cosa: desde que llegaste a mi vida soy una mejor persona.
+
+Me has enseñado a creer en el amor, en la paciencia y en la esperanza. Me has enseñado que la distancia no puede romper un vínculo que cada día decidimos fortalecer con confianza, respeto y cariño.
+
+Sueño constantemente con el día en que ya no tengamos que despedirnos por una videollamada.
+
+Sueño con poder despertar a tu lado, preparar un café juntos, caminar de tu mano, abrazarte todo el tiempo que la distancia nos ha robado y decirte "te amo" mirándote a los ojos.
+
+Sueño con construir un hogar lleno de risas, de paz y de recuerdos que ya no dependan de un calendario para encontrarnos.
+
+Si alguna vez dudas de cuánto te amo, recuerda esto:
+
+Te elegiría una y mil veces más.
+
+Te elegiría en esta vida y en cualquier otra.
+
+Te elegiría incluso sabiendo que tendría que volver a esperar, porque conocerte ha sido una de las bendiciones más grandes que me ha regalado la vida.
+
+No eres solo mi novio.
+
+Eres mi compañero.
+
+Mi mejor amigo.
+
+Mi apoyo.
+
+Mi lugar seguro.
+
+Y el amor más bonito que he conocido.
+
+Eres esa persona que llegó para demostrarme que el destino puede sorprendernos de las maneras más inesperadas y regalarnos algo tan valioso como un amor sincero.
+
+Gracias por estos tres años maravillosos.
+
+Gracias por no soltar mi mano, aunque la distancia intente hacerlo.
+
+Gracias por creer en nosotros incluso cuando el camino parece complicado.
+
+Gracias por amarme de la forma tan hermosa en que lo haces.
+
+Prometo seguir cuidando de este amor, seguir luchando por nuestros sueños y seguir creyendo en el futuro que imaginamos juntos.
+
+Porque estoy convencida de que un día toda esta espera se convertirá en el recuerdo más bonito de nuestra historia.
+
+Y cuando llegue ese momento, te abrazaré tan fuerte que intentaré recuperar, en un solo instante, todos los abrazos que la distancia nos negó.
+
+Te amo con una intensidad que las palabras nunca podrán explicar.
+
+Te amo en los días felices.
+
+Te amo en los difíciles.
+
+Te amo en cada amanecer.
+
+Te amo en cada anochecer.
+
+Te amo en cada latido de mi corazón.
+
+Gracias por existir.
+
+Gracias por elegirme.
+
+Gracias por ser el amor más grande y más bonito de mi vida.
+
+❤️
+
+Felices tres años, mi amor.
+
+Que este sea solo el comienzo de una vida entera juntos.
+
+Con todo mi corazón...
+
+Hoy.
+
+Mañana.
+
+Siempre.
+
+Y para toda la eternidad...
+
+Te amo infinitamente. ❤️
         </p>
+        <div class="decorations">🌸 💖 🌸</div>
       </div>
       <div class="pocket"></div>
     </div>
@@ -207,9 +375,9 @@
       }
     });
 
-    // Botón flotante para pausar o volver a poner la música
+    // Botón flotante para reproducir/pausar
     musicBtn.addEventListener('click', (e) => {
-      e.stopPropagation(); // Evita abrir o cerrar el sobre al pulsar el botón
+      e.stopPropagation();
       if (isPlaying) {
         music.pause();
         musicBtn.textContent = '🔇';
