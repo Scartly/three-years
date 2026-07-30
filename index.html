@@ -20,11 +20,11 @@
       min-height: 100vh;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow-y: auto;
-      padding: 40px 0;
+      padding: 60px 0;
       position: relative;
     }
 
-    /* Fondo animado con corazones y flores flotando */
+    /* Fondo animado con corazones y flores */
     .bg-decorations {
       position: fixed;
       top: 0;
@@ -55,7 +55,6 @@
       }
     }
 
-    /* Posicionamiento variado para los elementos flotantes */
     .floating-item:nth-child(1) { left: 10%; animation-duration: 9s; animation-delay: 0s; }
     .floating-item:nth-child(2) { left: 25%; animation-duration: 7s; animation-delay: 2s; font-size: 26px; }
     .floating-item:nth-child(3) { left: 40%; animation-duration: 10s; animation-delay: 1s; }
@@ -66,9 +65,10 @@
     .container {
       position: relative;
       cursor: pointer;
-      margin-top: 140px;
+      margin-top: 100px;
       margin-bottom: 50px;
       z-index: 2;
+      transition: margin-top 0.6s ease;
     }
 
     /* Sobre */
@@ -123,10 +123,10 @@
       z-index: 2;
     }
 
-    /* Carta con el texto */
+    /* Carta con el texto (Oculta al inicio) */
     .letter {
       position: absolute;
-      bottom: 10px;
+      bottom: 5px;
       left: 15px;
       width: 290px;
       height: 190px;
@@ -136,15 +136,15 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.15);
       transition: transform 0.8s ease 0.3s, height 0.8s ease 0.3s;
       z-index: 1;
-      overflow-y: auto;
+      overflow: hidden;
       text-align: center;
       border: 2px solid #f8bbd0;
     }
 
     .letter h2 {
       color: #d81b60;
-      font-size: 1.25rem;
-      margin-bottom: 12px;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
     }
 
     .letter p {
@@ -155,8 +155,8 @@
     }
 
     .decorations {
-      margin: 10px 0;
-      font-size: 1.1rem;
+      margin: 8px 0;
+      font-size: 1rem;
     }
 
     .hint {
@@ -195,7 +195,11 @@
       50% { opacity: 0.7; transform: scale(0.98); }
     }
 
-    /* Estado abierto */
+    /* ESTADO ABIERTO */
+    .container.open {
+      margin-top: 180px; /* Le da espacio arriba cuando despliega la carta */
+    }
+
     .container.open .flap {
       transform: rotateX(180deg);
       z-index: 0;
@@ -206,17 +210,17 @@
     }
 
     .container.open .letter {
-      transform: translateY(-120px);
-      height: 75vh;
-      max-height: 520px;
+      transform: translateY(-160px);
+      height: 70vh;
+      max-height: 480px;
       z-index: 4;
-      overflow-y: auto;
+      overflow-y: auto; /* Activa el scroll cuando abre */
     }
   </style>
 </head>
 <body>
 
-  <!-- Flores y corazones flotando de fondo -->
+  <!-- Flores y corazones flotando -->
   <div class="bg-decorations">
     <div class="floating-item">🌸</div>
     <div class="floating-item">💖</div>
@@ -226,10 +230,8 @@
     <div class="floating-item">❤️</div>
   </div>
 
-  <!-- Tu canción enlazada directamente -->
   <audio id="bg-music" src="jisamillas_sDofMwJf.mp3" loop preload="auto"></audio>
 
-  <!-- Botón flotante para la música -->
   <button class="music-btn" id="music-btn" title="Activar/Desactivar música">🎵</button>
 
   <div class="container" id="card">
@@ -361,7 +363,7 @@ Te amo infinitamente. ❤️
     const musicBtn = document.getElementById('music-btn');
     let isPlaying = false;
 
-    // Abrir sobre y reproducir la canción automáticamente
+    // Abrir sobre y reproducir música
     card.addEventListener('click', () => {
       const isOpen = card.classList.toggle('open');
 
@@ -370,12 +372,12 @@ Te amo infinitamente. ❤️
           isPlaying = true;
           musicBtn.textContent = '🔊';
         }).catch(err => {
-          console.log("Autoplay bloqueado por el navegador:", err);
+          console.log("Autoplay bloqueado:", err);
         });
       }
     });
 
-    // Botón flotante para reproducir/pausar
+    // Control del botón flotante de audio
     musicBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       if (isPlaying) {
