@@ -129,7 +129,8 @@
       transition: transform 0.6s ease;
     }
 
-    .envelope-container:hover {
+    /* CORRECCIÓN HOVER: Solo agranda el sobre si NO está abierto */
+    .envelope-container:not(.open):hover {
       transform: scale(1.02);
     }
 
@@ -239,11 +240,16 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
 
-    /* Estado Abierto: Vuela hacia el centro de la pantalla */
+    /* CORRECCIÓN CARTA ABIERTA */
     .envelope-container.open .letter-paper {
       opacity: 1;
       pointer-events: auto;
-      transform: translate(-50%, -50%) scale(1);
+      transform: translate(-50%, -50%) scale(1) !important;
+    }
+
+    /* Previene que la carta cambie de tamaño al pasar el mouse */
+    .envelope-container.open .letter-paper:hover {
+      transform: translate(-50%, -50%) scale(1) !important;
     }
 
     .envelope-container.open .flap {
@@ -596,7 +602,6 @@ Te amo infinitamente. ❤️
     setInterval(createPetal, 400);
 
     // Lógica del contador de tiempo juntos
-    // (Ajustado a 3 años exactos desde la fecha actual)
     const startDate = new Date();
     startDate.setFullYear(startDate.getFullYear() - 3);
 
