@@ -1,139 +1,226 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Feliz 3er Aniversario! ❤️</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    body {
+      background: linear-gradient(135deg, #ffebee 0%, #fce4ec 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+    }
 
-    <title>Para Ti ❤️</title>
+    .container {
+      position: relative;
+      cursor: pointer;
+      margin-top: 40px;
+    }
 
-    <link rel="stylesheet" href="style.css">
+    /* Sobre */
+    .envelope {
+      position: relative;
+      width: 320px;
+      height: 220px;
+      background-color: #f06292;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+    }
 
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap"
-        rel="stylesheet">
+    /* Solapa del sobre */
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-top: 120px solid #ec407a;
+      transform-origin: top;
+      transition: transform 0.6s ease, z-index 0.6s;
+      z-index: 3;
+    }
 
+    /* Sello de corazón */
+    .seal {
+      position: absolute;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 28px;
+      z-index: 4;
+      transition: opacity 0.4s ease;
+    }
+
+    /* Bolsillo frontal del sobre */
+    .pocket {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid #e91e63;
+      border-right: 160px solid #e91e63;
+      border-top: 110px solid transparent;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      z-index: 2;
+    }
+
+    /* Carta con el texto */
+    .letter {
+      position: absolute;
+      bottom: 10px;
+      left: 15px;
+      width: 290px;
+      height: 190px;
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 20px 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: transform 0.8s ease 0.3s, height 0.8s ease 0.3s;
+      z-index: 1;
+      overflow-y: auto;
+      text-align: center;
+    }
+
+    .letter h2 {
+      color: #d81b60;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+    }
+
+    .letter p {
+      color: #444;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      white-space: pre-line;
+    }
+
+    .hint {
+      position: absolute;
+      bottom: -45px;
+      width: 100%;
+      text-align: center;
+      color: #ad1457;
+      font-size: 0.95rem;
+      font-weight: 600;
+      animation: pulse 1.5s infinite;
+    }
+
+    /* Control de audio flotante */
+    .music-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.85);
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(0.98); }
+    }
+
+    /* Estado abierto */
+    .container.open .flap {
+      transform: rotateX(180deg);
+      z-index: 0;
+    }
+
+    .container.open .seal {
+      opacity: 0;
+    }
+
+    .container.open .letter {
+      transform: translateY(-130px);
+      height: 330px;
+      z-index: 4;
+    }
+  </style>
 </head>
-
 <body>
 
-    <!-- Fondo -->
-    <div class="background">
-        <div id="stars"></div>
-    </div>
+  <!-- Tu canción enlazada directamente -->
+  <audio id="bg-music" src="jisamillas_sDofMwJf.mp3" loop preload="auto"></audio>
 
-    <!-- Música -->
-    <audio id="music" loop>
-        <source src="jisamillas_sDofMwJf.mp3" type="audio/mpeg">
-    </audio>
+  <!-- Botón flotante para pausar/reproducir la música -->
+  <button class="music-btn" id="music-btn" title="Activar/Desactivar música">🎵</button>
 
-    <!-- Pantalla inicial -->
-    <section id="home">
-
-        <h1 class="title">
-            Feliz 3 años ❤️
-        </h1>
-
-        <p class="subtitle">
-            Tengo una carta para ti...
-        </p>
-
-        <!-- Sobre -->
-        <div class="envelope" id="envelope">
-
-            <div class="back"></div>
-
-            <div class="letter">
-
-                <div class="paper">
-
-                    <h2>
-                        Para el amor de mi vida ❤️
-                    </h2>
-
-                    <div id="typedText"></div>
-
-                    <button id="next">
-                        Ver nuestros recuerdos ❤️
-                    </button>
-
-                </div>
-
-            </div>
-
-            <div class="front"></div>
-
-            <div class="flap"></div>
-
-            <div class="seal">
-                ❤
-            </div>
-
-        </div>
-
-        <p class="click">
-            Haz clic en el sobre
-        </p>
-
-    </section>
-
-    <!-- Galería -->
-
-    <section id="gallery">
-
-        <h2>
-            Nuestros recuerdos 📸
-        </h2>
-
-        <div class="photos">
-
-            <img src="img/foto1.jpg">
-
-            <img src="img/foto2.jpg">
-
-            <img src="img/foto3.jpg">
-
-        </div>
-
-        <button id="love">
-            Tengo algo más...
-        </button>
-
-    </section>
-
-    <!-- Final -->
-
-    <section id="final">
-
-        <h1>
-            Te amo muchísimo ❤️
-        </h1>
-
+  <div class="container" id="card">
+    <div class="envelope">
+      <div class="flap"></div>
+      <div class="seal">❤️</div>
+      <div class="letter">
+        <h2>¡Feliz 3er Aniversario! ❤️</h2>
         <p>
-
-            Gracias por estos tres años.
-
-            Gracias por cada sonrisa.
-
-            Gracias por existir.
-
-            Volvería a elegirte una y mil veces.
-
+          Escribí acá tu mensaje...
+          
+          ¡A pesar de la distancia, estos 3 años juntos son lo más lindo que me pasó!
         </p>
+      </div>
+      <div class="pocket"></div>
+    </div>
+    <div class="hint">Toca el sobre para abrir 💌</div>
+  </div>
 
-        <button id="rain">
-            ❤️
-        </button>
+  <script>
+    const card = document.getElementById('card');
+    const music = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-btn');
+    let isPlaying = false;
 
-    </section>
+    // Abrir sobre y reproducir la canción automáticamente
+    card.addEventListener('click', () => {
+      const isOpen = card.classList.toggle('open');
 
-    <canvas id="canvas"></canvas>
+      if (isOpen && !isPlaying) {
+        music.play().then(() => {
+          isPlaying = true;
+          musicBtn.textContent = '🔊';
+        }).catch(err => {
+          console.log("Autoplay bloqueado por el navegador:", err);
+        });
+      }
+    });
 
-    <script>
-alert("HTML funcionando");
-</script>
+    // Botón flotante para pausar o volver a poner la música
+    musicBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Evita abrir o cerrar el sobre al pulsar el botón
+      if (isPlaying) {
+        music.pause();
+        musicBtn.textContent = '🔇';
+        isPlaying = false;
+      } else {
+        music.play();
+        musicBtn.textContent = '🔊';
+        isPlaying = true;
+      }
+    });
+  </script>
 
-<script src="script.js"></script>
 </body>
-
 </html>
