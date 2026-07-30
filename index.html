@@ -19,9 +19,9 @@
       align-items: center;
       min-height: 100vh;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
       overflow-y: auto;
-      padding: 60px 0;
-      position: relative;
+      padding: 20px 0;
     }
 
     /* Fondo animado con corazones y flores */
@@ -65,10 +65,9 @@
     .container {
       position: relative;
       cursor: pointer;
-      margin-top: 100px;
+      margin-top: 50px;
       margin-bottom: 50px;
       z-index: 2;
-      transition: margin-top 0.6s ease;
     }
 
     /* Sobre */
@@ -123,22 +122,23 @@
       z-index: 2;
     }
 
-    /* Carta con el texto (Oculta al inicio) */
+    /* Carta con el texto (Perfectamente guardada adentro) */
     .letter {
       position: absolute;
-      bottom: 5px;
+      bottom: 10px;
       left: 15px;
       width: 290px;
-      height: 190px;
+      height: 120px; /* Tamaño pequeño para quedar 100% oculta en el sobre */
       background: #ffffff;
       border-radius: 12px;
-      padding: 25px 18px;
+      padding: 20px 15px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-      transition: transform 0.8s ease 0.3s, height 0.8s ease 0.3s;
+      transition: all 0.8s ease 0.2s;
       z-index: 1;
       overflow: hidden;
       text-align: center;
       border: 2px solid #f8bbd0;
+      opacity: 0; /* Oculta hasta que se abre */
     }
 
     .letter h2 {
@@ -195,11 +195,7 @@
       50% { opacity: 0.7; transform: scale(0.98); }
     }
 
-    /* ESTADO ABIERTO */
-    .container.open {
-      margin-top: 180px; /* Le da espacio arriba cuando despliega la carta */
-    }
-
+    /* ESTADO ABIERTO: La carta se despliega limpia y centrada */
     .container.open .flap {
       transform: rotateX(180deg);
       z-index: 0;
@@ -210,11 +206,12 @@
     }
 
     .container.open .letter {
-      transform: translateY(-160px);
-      height: 70vh;
+      opacity: 1;
+      transform: translateY(-180px);
+      height: 65vh;
       max-height: 480px;
-      z-index: 4;
-      overflow-y: auto; /* Activa el scroll cuando abre */
+      z-index: 5;
+      overflow-y: auto; /* Scroll habilitado al desplegar */
     }
   </style>
 </head>
