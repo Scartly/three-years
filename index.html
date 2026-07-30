@@ -65,9 +65,8 @@
     .container {
       position: relative;
       cursor: pointer;
-      margin-top: 50px;
-      margin-bottom: 50px;
       z-index: 2;
+      transition: transform 0.6s ease;
     }
 
     /* Sobre */
@@ -122,41 +121,41 @@
       z-index: 2;
     }
 
-    /* Carta con el texto (Perfectamente guardada adentro) */
+    /* Carta oculta dentro del sobre */
     .letter {
       position: absolute;
       bottom: 10px;
       left: 15px;
       width: 290px;
-      height: 120px; /* Tamaño pequeño para quedar 100% oculta en el sobre */
+      height: 190px;
       background: #ffffff;
       border-radius: 12px;
-      padding: 20px 15px;
+      padding: 25px 18px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-      transition: all 0.8s ease 0.2s;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), height 0.8s ease, width 0.8s ease, left 0.8s ease;
       z-index: 1;
       overflow: hidden;
       text-align: center;
       border: 2px solid #f8bbd0;
-      opacity: 0; /* Oculta hasta que se abre */
+      opacity: 0;
     }
 
     .letter h2 {
       color: #d81b60;
-      font-size: 1.2rem;
-      margin-bottom: 10px;
+      font-size: 1.25rem;
+      margin-bottom: 12px;
     }
 
     .letter p {
       color: #444;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       line-height: 1.6;
       white-space: pre-line;
     }
 
     .decorations {
-      margin: 8px 0;
-      font-size: 1rem;
+      margin: 10px 0;
+      font-size: 1.1rem;
     }
 
     .hint {
@@ -169,6 +168,7 @@
       font-weight: 600;
       animation: pulse 1.5s infinite;
       text-shadow: 0 1px 2px rgba(255,255,255,0.6);
+      transition: opacity 0.3s;
     }
 
     /* Control de audio flotante */
@@ -195,7 +195,11 @@
       50% { opacity: 0.7; transform: scale(0.98); }
     }
 
-    /* ESTADO ABIERTO: La carta se despliega limpia y centrada */
+    /* --- ESTADO ABIERTO --- */
+    .container.open {
+      transform: translateY(120px); /* El sobre baja para dejar espacio a la carta arriba */
+    }
+
     .container.open .flap {
       transform: rotateX(180deg);
       z-index: 0;
@@ -205,13 +209,19 @@
       opacity: 0;
     }
 
+    .container.open .hint {
+      opacity: 0;
+    }
+
     .container.open .letter {
       opacity: 1;
-      transform: translateY(-180px);
-      height: 65vh;
+      transform: translateY(-260px); /* Sube suavemente */
+      width: 320px;                   /* Se ensancha un poquito para mayor comodidad */
+      left: 0;                        /* Queda centrada con el sobre */
+      height: 60vh;                   /* Aprovecha el 60% de la altura de la pantalla */
       max-height: 480px;
       z-index: 5;
-      overflow-y: auto; /* Scroll habilitado al desplegar */
+      overflow-y: auto;               /* Habilita el scroll completo dentro de la carta */
     }
   </style>
 </head>
